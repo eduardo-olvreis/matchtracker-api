@@ -1,0 +1,6 @@
+@MatchTracker.Api_HostAddress = http://localhost:5047
+
+GET {{MatchTracker.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
