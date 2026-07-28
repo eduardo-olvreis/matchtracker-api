@@ -31,8 +31,6 @@ namespace MatchTracker.Api.Repositories
 
         public async Task<Partida?> UpdateAsync(Partida partida)
         {
-            var partidaEncontada = await GetByIdAsync(partida.Id);
-            if (partidaEncontada == null) { return null; }
             _context.Update(partida);
             await _context.SaveChangesAsync();
             return partida;
