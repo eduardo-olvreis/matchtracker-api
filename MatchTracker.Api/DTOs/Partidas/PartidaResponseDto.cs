@@ -10,6 +10,6 @@ namespace MatchTracker.Api.DTOs.Partidas
         public int Mortes { get; set; }
         public int Assistencias { get; set; }
         public ResultadoPartida Resultado { get; set; }
-        public DateTime DataPartida { get; set; }
+        public DateOnly DataPartida { get; set; }
     }
 }

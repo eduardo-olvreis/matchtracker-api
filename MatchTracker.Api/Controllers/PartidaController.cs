@@ -2,6 +2,7 @@
 using MatchTracker.Api.Entities;
 using MatchTracker.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace MatchTracker.Api.Controllers
 {
@@ -32,7 +33,7 @@ namespace MatchTracker.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{id}")]    
+        [HttpGet("{id}", Name = "GetPartidaById")]    
         public async Task<ActionResult<PartidaResponseDto>> GetByIdAsync(int id)
         {
             var partida = await _repository.GetByIdAsync(id);
@@ -76,7 +77,7 @@ namespace MatchTracker.Api.Controllers
                 Resultado = partidaCriada.Resultado,
                 DataPartida = partidaCriada.DataPartida
             };
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = response.Id }, response);
+            return CreatedAtRoute("GetPartidaById", new { id = response.Id }, response);
         }
 
         [HttpPut("{id}")]

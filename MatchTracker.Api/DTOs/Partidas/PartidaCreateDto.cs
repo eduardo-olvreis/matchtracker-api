@@ -23,6 +23,6 @@ namespace MatchTracker.Api.DTOs.Partidas
         public ResultadoPartida? Resultado { get; set; }
 
         [Required(ErrorMessage = "Campo 'DataPartida' não pode ser nulo.")]
-        public DateTime DataPartida { get; set; }
+        public DateOnly DataPartida { get; set; }
     }
 }
