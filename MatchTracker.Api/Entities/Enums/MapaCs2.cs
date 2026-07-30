@@ -1,18 +1,15 @@
 ﻿namespace MatchTracker.Api.Entities.Enums
 {
-    public class MapaCs2
+    public enum MapaCs2
     {
-        enum Mapa
-        {
-            Dust2,
-            Mirage,
-            Inferno,
-            Nuke,
-            Overpass,
-            Cache,
-            Ancient,
-            Anubis,
-            Vertigo
-        }
+        Dust2,
+        Mirage,
+        Inferno,
+        Nuke,
+        Overpass,
+        Cache,
+        Ancient,
+        Anubis,
+        Vertigo
     }
 }

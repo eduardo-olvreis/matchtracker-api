@@ -1,12 +1,9 @@
 ﻿namespace MatchTracker.Api.Entities.Enums
 {
-    public class ResultadoPartida
+    public enum ResultadoPartida
     {
-        enum Resultado
-        {
-            Vitoria,
-            Derrota,
-            Empate
-        }
+        Vitoria,
+        Derrota,
+        Empate
     }
 }

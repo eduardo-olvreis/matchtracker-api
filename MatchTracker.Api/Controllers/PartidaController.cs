@@ -58,11 +58,11 @@ namespace MatchTracker.Api.Controllers
         {
             var partida = new Partida
             {
-                Mapa = partidaDto.Mapa,
+                Mapa = partidaDto.Mapa.Value,
                 Kills = partidaDto.Kills,
                 Mortes = partidaDto.Mortes,
                 Assistencias = partidaDto.Assistencias,
-                Resultado = partidaDto.Resultado,
+                Resultado = partidaDto.Resultado.Value,
                 DataPartida = partidaDto.DataPartida
             };
             var partidaCriada = await _repository.AddAsync(partida);
@@ -84,11 +84,11 @@ namespace MatchTracker.Api.Controllers
         {
             var partidaEncontrada = await _repository.GetByIdAsync(id);
             if (partidaEncontrada == null) { return NotFound($"Partida com Id {id} não encontrada."); }
-            partidaEncontrada.Mapa = partidaDto.Mapa;
+            partidaEncontrada.Mapa = partidaDto.Mapa.Value;
             partidaEncontrada.Kills = partidaDto.Kills;
             partidaEncontrada.Mortes = partidaDto.Mortes;
             partidaEncontrada.Assistencias = partidaDto.Assistencias;
-            partidaEncontrada.Resultado = partidaDto.Resultado;
+            partidaEncontrada.Resultado = partidaDto.Resultado.Value;
             partidaEncontrada.DataPartida = partidaDto.DataPartida;
             var partidaAtualizada = await _repository.UpdateAsync(partidaEncontrada);
             var response = new PartidaResponseDto
