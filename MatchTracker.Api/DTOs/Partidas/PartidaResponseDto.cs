@@ -9,6 +9,8 @@ namespace MatchTracker.Api.DTOs.Partidas
         public int Kills { get; set; }
         public int Mortes { get; set; }
         public int Assistencias { get; set; }
+        public int PlacarTime { get; set; }
+        public int PlacarAdversario { get; set; }
         public ResultadoPartida Resultado { get; set; }
         public DateOnly DataPartida { get; set; }
     }

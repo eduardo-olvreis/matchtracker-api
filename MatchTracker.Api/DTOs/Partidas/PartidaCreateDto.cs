@@ -18,9 +18,11 @@ namespace MatchTracker.Api.DTOs.Partidas
         [Range(0, 100, ErrorMessage = "Campo 'Assistencias' deve estar entre o intervalo de 0 a 100.")]
         public int Assistencias { get; set; }
 
-        [Required(ErrorMessage = "Campo 'Resultado' não pode ser nulo.")]
-        [EnumDataType(typeof(ResultadoPartida), ErrorMessage = "Resultado informado é inválido.")]
-        public ResultadoPartida? Resultado { get; set; }
+        [Range(0, 16, ErrorMessage = "Campo 'Placar Time' deve estar entre o intervalo de 0 a 16.")]
+        public int PlacarTime { get; set; }
+
+        [Range(0, 16, ErrorMessage = "Campo 'Placar Adversário' deve estar entre o intervalo de 0 a 16.")]
+        public int PlacarAdversario { get; set; }
 
         [Required(ErrorMessage = "Campo 'DataPartida' não pode ser nulo.")]
         public DateOnly DataPartida { get; set; }
