@@ -2,7 +2,6 @@
 using MatchTracker.Api.Entities;
 using MatchTracker.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 
 namespace MatchTracker.Api.Controllers
 {
@@ -20,16 +19,7 @@ namespace MatchTracker.Api.Controllers
         public async Task<ActionResult<IEnumerable<PartidaResponseDto>>> GetAllAsync()
         {
             var partidas = await _repository.GetAllAsync();
-            var response = partidas.Select(p => new PartidaResponseDto
-            {
-                Id = p.Id,
-                Mapa = p.Mapa,
-                Kills = p.Kills,
-                Mortes = p.Mortes,
-                Assistencias = p.Assistencias,
-                Resultado = p.Resultado,
-                DataPartida = p.DataPartida,
-            }).ToList();
+            var response = partidas.Select(MapearParaDto).ToList();
             return Ok(response);
         }
 
@@ -41,16 +31,7 @@ namespace MatchTracker.Api.Controllers
             {
                 return NotFound($"Partida de ID: {id} não encontrada.");
             }
-            var response = new PartidaResponseDto
-            {
-                Id = partida.Id,
-                Mapa = partida.Mapa,
-                Kills = partida.Kills,
-                Mortes = partida.Mortes,
-                Assistencias = partida.Assistencias,
-                Resultado = partida.Resultado,
-                DataPartida = partida.DataPartida
-            };
+            var response = MapearParaDto(partida);
             return Ok(response);
         }
 
@@ -63,20 +44,12 @@ namespace MatchTracker.Api.Controllers
                 Kills = partidaDto.Kills,
                 Mortes = partidaDto.Mortes,
                 Assistencias = partidaDto.Assistencias,
-                Resultado = partidaDto.Resultado.Value,
+                PlacarTime = partidaDto.PlacarTime,
+                PlacarAdversario = partidaDto.PlacarAdversario,
                 DataPartida = partidaDto.DataPartida
             };
             var partidaCriada = await _repository.AddAsync(partida);
-            var response = new PartidaResponseDto
-            {
-                Id = partidaCriada.Id,
-                Mapa = partidaCriada.Mapa,
-                Kills = partidaCriada.Kills,
-                Mortes = partidaCriada.Mortes,
-                Assistencias = partidaCriada.Assistencias,
-                Resultado = partidaCriada.Resultado,
-                DataPartida = partidaCriada.DataPartida
-            };
+            var response = MapearParaDto(partidaCriada);
             return CreatedAtRoute("GetPartidaById", new { id = response.Id }, response);
         }
 
@@ -89,19 +62,11 @@ namespace MatchTracker.Api.Controllers
             partidaEncontrada.Kills = partidaDto.Kills;
             partidaEncontrada.Mortes = partidaDto.Mortes;
             partidaEncontrada.Assistencias = partidaDto.Assistencias;
-            partidaEncontrada.Resultado = partidaDto.Resultado.Value;
+            partidaEncontrada.PlacarTime = partidaDto.PlacarTime;
+            partidaEncontrada.PlacarAdversario = partidaDto.PlacarAdversario;
             partidaEncontrada.DataPartida = partidaDto.DataPartida;
             var partidaAtualizada = await _repository.UpdateAsync(partidaEncontrada);
-            var response = new PartidaResponseDto
-            {
-                Id = partidaAtualizada.Id,
-                Mapa = partidaAtualizada.Mapa,
-                Kills = partidaAtualizada.Kills,
-                Mortes = partidaAtualizada.Mortes,
-                Assistencias = partidaAtualizada.Assistencias,
-                Resultado = partidaAtualizada.Resultado,
-                DataPartida = partidaAtualizada.DataPartida
-            };
+            var response = MapearParaDto(partidaAtualizada);
             return Ok(response);
         }
 
@@ -111,6 +76,22 @@ namespace MatchTracker.Api.Controllers
             var partida = await _repository.DeleteAsync(id);
             if(partida == false) { return NotFound($"Partida com Id {id} não encontrada."); }
             return NoContent();
+        }
+
+        public PartidaResponseDto MapearParaDto(Partida partida)
+        {
+            return new PartidaResponseDto
+            {
+                Id = partida.Id,
+                Mapa = partida.Mapa,
+                Kills = partida.Kills,
+                Mortes = partida.Mortes,
+                Assistencias = partida.Assistencias,
+                PlacarTime = partida.PlacarTime,
+                PlacarAdversario = partida.PlacarAdversario,
+                Resultado = partida.Resultado,
+                DataPartida = partida.DataPartida
+            };
         }
     }
 }
