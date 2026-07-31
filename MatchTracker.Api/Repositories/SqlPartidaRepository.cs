@@ -14,7 +14,7 @@ namespace MatchTracker.Api.Repositories
 
         public async Task<IEnumerable<Partida>> GetAllAsync()
         {
-            return await _context.Partidas.AsNoTracking().ToListAsync();
+            return await _context.Partidas.AsNoTracking().OrderBy(p => p.Id).ToListAsync();
         }
 
         public async Task<Partida?> GetByIdAsync(int id)

@@ -86,9 +86,9 @@ namespace MatchTracker.Api.Services
 
         private bool IsPlacarValido(PartidaCreateDto dto)
         {
-            if((dto.PlacarTime == 13 || dto.PlacarAdversario == 13) && (dto.PlacarTime < 13 || dto.PlacarAdversario < 13)) {  return true; }
-            else if((dto.PlacarTime == 16 || dto.PlacarAdversario == 16) && (dto.PlacarTime >= 12 || dto.PlacarAdversario >= 12) && (dto.PlacarTime < 16 || dto.PlacarAdversario < 16)) { return true; }
-            else if (dto.PlacarTime == 15 && dto.PlacarAdversario == 15) { return true; }
+            if((dto.PlacarTime == 13 && dto.PlacarAdversario < 12) || (dto.PlacarAdversario == 13 && dto.PlacarTime < 12)) {  return true; }
+            else if((dto.PlacarTime == 16 && dto.PlacarAdversario >= 12 && dto.PlacarAdversario <= 14) || (dto.PlacarAdversario == 16 && dto.PlacarTime >= 12 && dto.PlacarTime <= 14)) { return true; }
+            else if(dto.PlacarTime == 15 && dto.PlacarAdversario == 15) { return true; }
             else return false;
         }
 

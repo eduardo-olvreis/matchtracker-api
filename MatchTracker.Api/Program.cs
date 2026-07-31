@@ -1,6 +1,7 @@
 using MatchTracker.Api.Data;
 using MatchTracker.Api.Middlewares;
 using MatchTracker.Api.Repositories;
+using MatchTracker.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -10,6 +11,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPartidaRepository, SqlPartidaRepository>();
+builder.Services.AddScoped<IPartidaService, PartidaService>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
